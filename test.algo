@@ -1,0 +1,100 @@
+ALGORITHM test
+VAR n, long, voi, letter, word, i : INTEGER;
+    t : ARRAY OF CHAR;
+BEGIN
+    // Initialize variables
+    voi := 0;
+    letter := 0;
+    word := 0;
+    i := 0;
+
+    // Read characters until a period ('.') is encountered, excluding the period
+    REPEAT
+        Read(t[i]);
+        i := i + 1;
+    UNTIL (t[i-1] = '.');
+
+    // Set `n` to the total number of characters in the sentence (excluding the period)
+    n := i - 1; // remove the '.'
+    long := n;
+    i := 0; // Reset `i` to use it again
+
+    // Count letters (ignoring spaces) and vowels
+    WHILE (i < n) DO
+        IF (t[i] ≠ ' ') THEN
+            letter := letter + 1; // Count letter if not a space
+            // Check if it’s a vowel
+            IF (t[i] = 'a' OR t[i] = 'e' OR t[i] = 'i' OR t[i] = 'o' OR t[i] = 'u') THEN
+                voi := voi + 1;
+            END_IF
+        END_IF
+
+        // Increment word count when a space follows a word (not consecutive spaces)
+        IF (t[i] = ' ' AND t[i-1] ≠ ' ') THEN
+            word := word + 1;
+        END_IF
+        i := i + 1;
+    END_WHILE
+
+    // If the last character is not a space, the sentence consists of one word
+    IF (t[n-1] ≠ ' ') THEN
+        word := word + 1;
+    END_IF
+
+    // Display the final counts for vowels, sentence length, letters, and words
+    write("The number of vowels is", voi);
+    write("The length of the sentence is", long);
+    write("The number of letters is", letter);
+    write("The number of words is", word);
+
+END
+----------------------------------------------the second using for : ------------------------------------------
+ALGORITHM test
+VAR n, long, voi, letter, word, i : INTEGER;
+    t : ARRAY OF CHAR;
+BEGIN
+    // Initialize variables
+    voi := 0;
+    letter := 0;
+    word := 0;
+    i := 0;
+
+    // Read the input sentence character by character until the period '.'
+    REPEAT
+        Read(t[i]);
+        i := i + 1;
+    UNTIL (t[i-1] = '.');
+
+    // Set `n` to the total number of characters in the sentence (excluding the period)
+    n := i - 1;
+    long := n; // Length of the sentence excluding the period
+
+    // Iterate over the array to calculate vowels, letters, and words
+    FOR i := 0 TO n-1 DO
+        IF (t[i] ≠ ' ') THEN
+            letter := letter + 1; // Count letter if not a space
+
+            // Check if the character is a vowel
+            IF (t[i] = 'a' OR t[i] = 'e' OR t[i] = 'i' OR t[i] = 'o' OR t[i] = 'u') THEN
+                voi := voi + 1;
+            END_IF
+        END_IF
+
+        // Count words (word boundaries are spaces between characters)
+        IF (t[i] = ' ' AND (i = 0 OR t[i-1] ≠ ' ')) THEN
+            word := word + 1;
+        END_IF
+    END_FOR
+
+    // If the last character is not a space, we count the last word
+    IF (t[n-1] ≠ ' ') THEN
+        word := word + 1;
+    END_IF
+
+    // Display the results
+    write("The number of vowels is", voi);
+    write("The length of the sentence is", long);
+    write("The number of letters is", letter);
+    write("The number of words is", word);
+
+END
