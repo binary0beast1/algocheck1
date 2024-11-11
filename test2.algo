@@ -1,0 +1,48 @@
+ALGORITHM test2
+VAR vowelCount, wordCount, length, i, n: INTEGER;
+    t : ARRAY OF CHAR;
+BEGIN
+
+    // Initialize counters
+    length := 0;
+    wordCount := 0;
+    vowelCount := 0;
+    
+    // Read the sentence character by character until the period '.'
+    i := 0;
+    REPEAT
+        Read(t[i]);
+        i := i + 1;
+    UNTIL (t[i-1] = '.');
+    
+    n := i - 1;  // Exclude the period, so n is the index of the last character
+    i := 0;      // Reset index for the next loop
+
+    // Loop through each character in the sentence (excluding the period)
+    FOR i := 0 TO n - 1 DO
+        IF (t[i] <> ' ') THEN // <> : not equal to 
+            length := length + 1;  // Increase sentence length
+        END_IF
+        
+        // Check if the character is a vowel
+        IF (t[i] = 'a' OR t[i] = 'e' OR t[i] = 'i' OR t[i] = 'o' OR t[i] = 'u' OR
+            t[i] = 'A' OR t[i] = 'E' OR t[i] = 'I' OR t[i] = 'O' OR t[i] = 'U') THEN
+            vowelCount := vowelCount + 1;
+        END_IF
+        
+        // Count words by spaces
+        IF (t[i] = ' ') THEN
+            wordCount := wordCount + 1;  // Increase word count when a space is encountered
+        END_IF
+    END_FOR
+    
+    // Ensure the last word after the last space is counted!
+    wordCount := wordCount + 1;
+    
+    // Display the results
+    write("The number of vowels is ", vowelCount);
+    write("The length of the sentence is ", length);
+    write("The number of words is ", wordCount);
+
+END
+
